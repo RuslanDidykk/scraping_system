@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Boolean, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
+
 Base = declarative_base()
 
 
@@ -50,6 +51,7 @@ class Url(Base):
     updated = Column(Boolean)
     timestamp = Column(TIMESTAMP)
 
+
 class Models(Base):
     __tablename__ = 'models'
     id = Column(Integer, primary_key=True)
@@ -64,6 +66,7 @@ class Models(Base):
     short_transmission = Column(String(100))
     min_price = Column(Integer)
     max_price = Column(Integer)
+
 
 class Trims(Base):
     __tablename__ = 'trims'
@@ -84,9 +87,8 @@ class Trims(Base):
 
 
 if __name__ == '__main__':
-    engine = create_engine('mysql+mysqldb://dimaforys:Xbtztq2S@178.238.224.108/dubizzle',
-                           echo=True)
+    from config import database_uri
+
+    engine = create_engine(database_uri, echo=True)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
-
-
